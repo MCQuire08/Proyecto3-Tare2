@@ -1,0 +1,97 @@
+<form (ngSubmit)="handleAction(frm)" autocomplete="off" #frm="ngForm" class="add-product-container">
+  <h3 class="mb-5 px-5">{{title}}</h3>
+
+  <div class="border-bottom pb-3 mb-3">
+    <div class="px-5">
+      <label for="productName" class="form-label mb-2">Product Name</label>
+      <input #productName="ngModel" type="text" class="form-control" id="productName" name="name" 
+        placeholder="Enter product name"
+        [(ngModel)]="product.name" 
+        [ngClass]="{ 
+          'is-invalid': productName.invalid && productName.touched,
+          'is-valid': productName.valid && productName.touched
+        }" 
+        required 
+      />
+      <div *ngIf="productName.invalid && productName.touched" class="invalid-feedback">
+        Please add a valid product name
+      </div>
+    </div>
+  </div>
+
+  <div class="border-bottom pb-3 mb-3 px-5">
+    <div class="row">
+      <div class="col-6">
+        <label for="description" class="form-label mb-2">Description</label>
+        <textarea #description="ngModel" class="form-control" id="description" name="description" 
+          placeholder="Enter product description"
+          [(ngModel)]="product.description" 
+          [ngClass]="{ 
+            'is-invalid': description.invalid && description.touched,
+            'is-valid': description.valid && description.touched
+          }" 
+          required 
+        ></textarea>
+        <div *ngIf="description.invalid && description.touched" class="invalid-feedback">
+          Please add a valid description
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="price" class="form-label mb-2">Price</label>
+        <input #price="ngModel" type="number" class="form-control" id="price" name="price" 
+          placeholder="Enter price"
+          [(ngModel)]="product.price" 
+          [ngClass]="{ 
+            'is-invalid': price.invalid && price.touched,
+            'is-valid': price.valid && price.touched
+          }" 
+          required 
+        />
+        <div *ngIf="price.invalid && price.touched" class="invalid-feedback">
+          Please add a valid price
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-bottom pb-3 mb-3 px-5">
+    <div class="col-6">
+      <label for="quantity" class="form-label mb-2">Quantity</label>
+      <input #quantity="ngModel" type="number" class="form-control" id="quantity" name="quantity" 
+        placeholder="Enter quantity"
+        [(ngModel)]="product.quantity" 
+        [ngClass]="{ 
+          'is-invalid': quantity.invalid && quantity.touched,
+          'is-valid': quantity.valid && quantity.touched
+        }" 
+        required 
+      />
+      <div *ngIf="quantity.invalid && quantity.touched" class="invalid-feedback">
+        Please add a valid quantity
+      </div>
+    </div>
+  </div>
+
+  <div class="border-bottom pb-3 mb-3 px-5">
+    <div class="col-6">
+      <label for="category" class="form-label mb-2">Category</label>
+      <select id="category" class="form-control" name="category" 
+        [ngModel]="product.category?.id" 
+        (ngModelChange)="onCategoryChange($event)" 
+        required>
+        <option value="" disabled>Select category</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div *ngIf="!product.category?.id && frm.touched" class="invalid-feedback">
+        Please select a category
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-end px-5">
+    <button type="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button>
+  </div>
+</form>

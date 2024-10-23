@@ -1,0 +1,47 @@
+<div class="table-container table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Category</th>
+          <th class="text-center" scope="col" *ngIf="permission">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of productList; track item.id) {
+        <tr>
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.name}}</td>
+          <td>{{item.description}}</td>
+          <td>{{item.price | currency}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{item.category?.name}}</td>
+          <td>
+            <div class="d-flex justify-content-evenly align-items-center" *ngIf="permission">
+              <button type="button" (click)="showDetail(item, formModal)" class="btn btn-secondary">
+                <i class="fa-solid fa-eye white"></i>
+              </button>
+              <button type="button" (click)="deleteProduct(item)" class="btn btn-danger">
+                <i class="fa-solid fa-trash white"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  <app-modal size="lg" #formModal>
+    <app-product-form 
+      [product]="currentProduct" 
+      [action]="'edit'"
+      [title]="'Update Product'"
+    >
+    </app-product-form>
+  </app-modal>
+  

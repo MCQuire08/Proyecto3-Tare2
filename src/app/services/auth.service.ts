@@ -38,6 +38,14 @@ export class AuthService {
     return this.user;
   }
 
+  public getUserAuthority(): string | null {
+    if (this.user && this.user.authorities && this.user.authorities.length > 0) {
+      return this.user.authorities[0].authority;
+    }
+    return null;
+  }
+  
+
   public getAccessToken(): string | null {
     return this.accessToken;
   }

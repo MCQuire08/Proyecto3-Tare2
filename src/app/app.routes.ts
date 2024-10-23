@@ -9,6 +9,8 @@ import { AdminRoleGuard } from './guards/admin-role.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GuestGuard } from './guards/guest.guard';
 import { IRole } from './interfaces';
+import { ProductsComponent } from './pages/products/products.component';
+import { CategoryComponent } from './pages/category/category.component';
 
 export const routes: Routes = [
   {
@@ -43,11 +45,10 @@ export const routes: Routes = [
       {
         path: 'users',
         component: UsersComponent,
-        canActivate:[AdminRoleGuard],
+        canActivate: [AdminRoleGuard],
         data: { 
           authorities: [
-            IRole.admin, 
-            IRole.superAdmin
+            IRole.superAdmin,
           ],
           name: 'Users'
         }
@@ -62,7 +63,33 @@ export const routes: Routes = [
             IRole.user
           ],
           name: 'Dashboard'
-        }
+        },
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
+        canActivate: [AuthGuard],
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Products'
+        },
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
+        canActivate: [AuthGuard],
+        data: { 
+          authorities: [
+            IRole.admin, 
+            IRole.superAdmin,
+            IRole.user
+          ],
+          name: 'Category'
+        },
       }
     ],
   },

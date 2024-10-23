@@ -1,0 +1,47 @@
+<form (ngSubmit)="handleAction(frm)" autocomplete="off" #frm="ngForm" class="add-category-container">
+    <h3 class="mb-5 px-5">{{title}}</h3>
+  
+    <!-- Category Name -->
+    <div class="border-bottom pb-3 mb-3">
+      <div class="px-5">
+        <label for="categoryName" class="form-label mb-2">Category Name</label>
+        <input #categoryName="ngModel" type="text" class="form-control" id="categoryName" name="name"
+          placeholder="Enter category name"
+          [(ngModel)]="category.name"
+          [ngClass]="{
+            'is-invalid': categoryName.invalid && categoryName.touched,
+            'is-valid': categoryName.valid && categoryName.touched
+          }"
+          required
+        />
+        <div *ngIf="categoryName.invalid && categoryName.touched" class="invalid-feedback">
+          Please add a valid category name
+        </div>
+      </div>
+    </div>
+  
+    <!-- Category Description -->
+    <div class="border-bottom pb-3 mb-3">
+      <div class="px-5">
+        <label for="categoryDescription" class="form-label mb-2">Description</label>
+        <textarea #categoryDescription="ngModel" class="form-control" id="categoryDescription" name="description"
+          placeholder="Enter category description"
+          [(ngModel)]="category.description"
+          [ngClass]="{
+            'is-invalid': categoryDescription.invalid && categoryDescription.touched,
+            'is-valid': categoryDescription.valid && categoryDescription.touched
+          }"
+          required
+        ></textarea>
+        <div *ngIf="categoryDescription.invalid && categoryDescription.touched" class="invalid-feedback">
+          Please add a valid description
+        </div>
+      </div>
+    </div>
+  
+    <!-- Submit Button -->
+    <div class="d-flex justify-content-end px-5">
+      <button type="submit" class="btn btn-primary" [disabled]="frm.invalid">Submit</button>
+    </div>
+  </form>
+  
